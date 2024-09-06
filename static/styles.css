@@ -1,0 +1,138 @@
+/* General Body Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #6E7FFC, #36C7FF);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container for Main Layout */
+.container {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 30px;
+    width: 80%;
+    max-width: 100%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+}
+
+/* Left Section for Inputs */
+.left-section {
+    width: 40%;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #FFDE59;
+}
+
+/* Label Styling */
+label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Input Field Styling */
+input[type="text"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+/* Dropdown Styling */
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+/* Button Styling */
+button {
+    background-color: #FFDE59;
+    color: #333;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #FFCC00;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Right Section for Output */
+.right-section {
+    width: 55%;
+    color: #fff;
+}
+
+.right-section h2 {
+    font-size: 1.5rem;
+    color: #FFDE59;
+}
+
+.output p {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 1rem;
+    margin: 10px 0;
+}
+
+/* Night Mode */
+body.night-mode {
+    background: linear-gradient(135deg, #1D1D1D, #333333);
+}
+
+.container.night-mode {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.output.night-mode p {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+button.night-mode {
+    background-color: #FFDE59;
+    color: #333;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .left-section,
+    .right-section {
+        width: 100%;
+        margin: 10px 0;
+    }
+}

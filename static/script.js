@@ -117,4 +117,47 @@ function downloadSummary() {
 function toggleTheme() {
     document.body.classList.toggle('night-mode');
     document.querySelector('.container').classList.toggle('night-mode');
+    const icon = document.getElementById('theme-icon');
+    if (document.body.classList.contains('night-mode')) {
+        icon.src = 'https://img.icons8.com/ios-filled/50/000000/sun.png';
+    } else {
+        icon.src = 'https://img.icons8.com/ios-filled/50/000000/moon-symbol.png';
+    }
 }
+
+// Function to fetch the latest business news
+async function fetchLatestBusinessNews() {
+    const apiKey = 'pub_52897116c29c557e76296c4af10f3988ddc23'; // Your NewsData API key
+    const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&country=in&language=en&category=business`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const newsList = document.getElementById('news-list');
+
+        if (data.results && data.results.length > 0) {
+            newsList.innerHTML = '';
+            data.results.slice(0, 4).forEach(article => { // Limit to 4 articles
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = '#'; // Prevent opening a new window
+                link.textContent = article.title;
+                link.dataset.url = article.link; // Store the URL in a data attribute
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the default action
+                    document.getElementById('news-url').value = this.dataset.url; // Set the URL in the input field
+                });
+                listItem.appendChild(link);
+                newsList.appendChild(listItem);
+            });
+        } else {
+            newsList.innerHTML = '<li>No latest business news available.</li>';
+        }
+
+    } catch (error) {
+        console.error("Failed to fetch news:", error);
+    }
+}
+
+// Fetch news when the page loads
+window.onload = fetchLatestBusinessNews;

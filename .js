@@ -1,7 +1,16 @@
 let voices = [];
 let speechSynthesisUtterance;
 let isSpeaking = false;
-let isPaused = false; // Track pause state
+
+const desiredVoices = {
+    "en": "Google US English",
+    "hi": "Google हिन्दी",
+    "mr": "Google मराठी",
+    "ta": "Google தமிழ்",
+    "ja": "Google 日本語",
+    "es": "Google español",
+    "fr": "Google français"
+};
 
 window.speechSynthesis.onvoiceschanged = () => {
     voices = window.speechSynthesis.getVoices();
@@ -12,21 +21,15 @@ function populateVoiceList() {
     const voiceSelect = document.getElementById('voiceSelect');
     voiceSelect.innerHTML = ''; // Clear existing options
 
-    const voiceMap = {
-        "en": "Google US English",  // English voice
-        "hi": "Google हिन्दी",      // Hindi voice (Lekha)
-        "ja": "Google 日本語",      // Japanese voice
-        "es": "Google español",     // Spanish voice
-        "fr": "Google français"     // French voice
-    };
-
-    voices.forEach((voice, index) => {
-        if (Object.values(voiceMap).includes(voice.name)) {
+    // Filter voices to match the desired ones
+    Object.values(desiredVoices).forEach(desiredVoiceName => {
+        const filteredVoices = voices.filter(voice => voice.name === desiredVoiceName);
+        filteredVoices.forEach((voice, index) => {
             const option = document.createElement('option');
-            option.value = index;
+            option.value = voice.name; // Use the voice name as the value
             option.textContent = `${voice.name} (${voice.lang})`;
             voiceSelect.appendChild(option);
-        }
+        });
     });
 }
 
@@ -92,20 +95,19 @@ function readAloud() {
 
     window.speechSynthesis.speak(speechSynthesisUtterance);
     isSpeaking = true;
-    isPaused = false;
     document.getElementById('pause-resume-btn').innerHTML = '<i class="fas fa-pause icon"></i>';
 }
 
 function togglePauseResume() {
     if (isSpeaking) {
-        if (speechSynthesis.paused) {
-            window.speechSynthesis.resume();
-            isPaused = false;
-            document.getElementById('pause-resume-btn').innerHTML = '<i class="fas fa-pause icon"></i>';
-        } else {
-            window.speechSynthesis.pause();
-            isPaused = true;
-            document.getElementById('pause-resume-btn').innerHTML = '<i class="fas fa-play icon"></i>';
+        if (speechSynthesis.speaking) {
+            if (speechSynthesis.paused) {
+                window.speechSynthesis.resume();
+                document.getElementById('pause-resume-btn').innerHTML = '<i class="fas fa-pause icon"></i>';
+            } else {
+                window.speechSynthesis.pause();
+                document.getElementById('pause-resume-btn').innerHTML = '<i class="fas fa-play icon"></i>';
+            }
         }
     }
 }

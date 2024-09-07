@@ -1,5 +1,6 @@
 let voices = [];
 let speechSynthesisUtterance;
+let isSpeaking = false;
 
 window.speechSynthesis.onvoiceschanged = () => {
     voices = window.speechSynthesis.getVoices();
@@ -78,23 +79,29 @@ function readAloud() {
     speechSynthesisUtterance.rate = 1;
 
     window.speechSynthesis.speak(speechSynthesisUtterance);
+    isSpeaking = true;
+    document.getElementById('pause-resume-btn').innerHTML = '<i class="fas fa-pause icon"></i>';
 }
 
-function pauseSpeaking() {
-    if (speechSynthesis.speaking) {
-        window.speechSynthesis.pause();
-    }
-}
-
-function resumeSpeaking() {
-    if (speechSynthesis.paused) {
-        window.speechSynthesis.resume();
+function togglePauseResume() {
+    if (isSpeaking) {
+        if (speechSynthesis.speaking) {
+            if (speechSynthesis.paused) {
+                window.speechSynthesis.resume();
+                document.getElementById('pause-resume-btn').innerHTML = '<i class="fas fa-pause icon"></i>';
+            } else {
+                window.speechSynthesis.pause();
+                document.getElementById('pause-resume-btn').innerHTML = '<i class="fas fa-play icon"></i>';
+            }
+        }
     }
 }
 
 function stopSpeaking() {
     if (speechSynthesis.speaking) {
         window.speechSynthesis.cancel();
+        isSpeaking = false;
+        document.getElementById('pause-resume-btn').innerHTML = '<i class="fas fa-play icon"></i>';
     }
 }
 

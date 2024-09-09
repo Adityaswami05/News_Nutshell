@@ -181,3 +181,33 @@ async function fetchLatestBusinessNews() {
 
 // Fetch news when the page loads
 window.onload = fetchLatestBusinessNews;
+
+async function askQuestion() {
+    const question = document.getElementById('question').value;
+
+    if (!question) {
+        alert("Please enter a question.");
+        return;
+    }
+
+    try {
+        const response = await fetch('/ask', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `question=${encodeURIComponent(question)}`,
+        });
+
+        const data = await response.json();
+        if (data.error) {
+            alert(`Error: ${data.error}`);
+        } else {
+            document.getElementById('answer-text').innerText = data.answer;
+        }
+
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Failed to get the answer.");
+    }
+}

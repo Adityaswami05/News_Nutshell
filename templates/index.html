@@ -41,6 +41,19 @@
                 <h2>Latest Business News</h2>
                 <ul id="news-list"></ul>
             </div>
+
+            <!-- Question Answering Section -->
+            <h2>Ask a Question</h2>
+            <label for="question">Your Question:</label>
+            <input type="text" id="question" placeholder="What is the main topic of the article?" required>
+
+            <button onclick="askQuestion()">Get Answer</button>
+
+            <!-- Output for the answer -->
+            <div class="answer">
+                <h2>Answer:</h2>
+                <p id="answer-text"></p>
+            </div>
         </div>
 
         <!-- Right Section: Output -->

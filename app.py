@@ -1,3 +1,4 @@
+
 from flask import Flask, request, render_template, jsonify
 from newspaper import Article
 from deep_translator import GoogleTranslator

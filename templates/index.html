@@ -1,82 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <title>News Summarizer and Translator</title>
-</head>
-<body>
-    
+  </head>
+  <body>
     <div class="container">
-        <!-- Toggle Theme Button -->
-        <button class="theme-toggle-btn" onclick="toggleTheme()">
-            <img src="https://img.icons8.com/ios-filled/50/000000/moon-symbol.png" id="theme-icon" alt="Toggle Theme">
-        </button>
+      <!-- Toggle Theme Button -->
+      <button class="theme-toggle-btn" onclick="toggleTheme()">
+        <img
+          src="https://img.icons8.com/ios-filled/50/000000/moon-symbol.png"
+          id="theme-icon"
+          alt="Toggle Theme"
+        />
+      </button>
 
-        <!-- Left Section: Inputs -->
-        <div class="left-section">
-            <h1>News Nutshell</h1>
-            <label for="news-url">Enter News URL:</label>
-            <input type="text" id="news-url" placeholder="https://example.com/news" required>
+      <!-- Left Section: Inputs -->
+      <div class="left-section">
+        <h1>News Nutshell</h1>
+        <label for="news-url">Enter News URL:</label>
+        <input
+          type="text"
+          id="news-url"
+          placeholder="https://example.com/news"
+          required
+        />
 
-            <label>Select Language:</label>
-            <select id="languageSelect">
-                <option value="auto" selected>Auto-detect</option>
-                <option value="en">English</option>
-                <option value="hi">Hindi</option>
-                <option value="mr">Marathi</option>
-                <option value="te">Telugu</option>
-                <option value="gu">Gujarati</option>
-                <!-- Add more language options here as needed -->
-            </select>
+        <label>Select Language for translation:</label>
+        <select id="languageSelect">
+          <option value="auto" selected>Auto-detect</option>
+          <option value="en">English</option>
+          <option value="hi">Hindi</option>
+          <option value="mr">Marathi</option>
+          <option value="te">Telugu</option>
+          <option value="gu">Gujarati</option>
+          <!-- Add more language options here as needed -->
+        </select>
 
-            <!-- Buttons -->
-            <button onclick="translateAndSummarize()">Translate & Summarize</button>
-            <button onclick="downloadSummary()">Download</button>
-            
-            <!-- Latest News Section -->
-            <div class="latest-news">
-                <h2>Latest Business News</h2>
-                <ul id="news-list"></ul>
-            </div>
+        <!-- Buttons -->
+        <button onclick="translateAndSummarize()">Summarize</button>
+        <button onclick="downloadSummary()">Download</button>
+
+        <!-- Latest News Section -->
+        <div class="latest-news">
+          <h2>Latest Business News</h2>
+          <ul id="news-list"></ul>
         </div>
+      </div>
 
-        <!-- Right Section: Output -->
-        <div class="right-section">
-            <div class="output">
-                <h2>Article Title:</h2>
-                <p id="article-title"></p>
+      <!-- Right Section: Output -->
+      <div class="right-section">
+        <div class="output">
+          <h2>Article Title:</h2>
+          <p id="article-title"></p>
 
-                <h2>Article Summary:</h2>
-                <p id="article-summary"></p>
+          <h2>Article Summary:</h2>
+          <p id="article-summary"></p>
 
-                <h2>Article Publish Date:</h2>
-                <p id="article-date"></p>
+          <h2>Article Publish Date:</h2>
+          <p id="article-date"></p>
 
-                <h2>Article Image Link:</h2>
-                <a id="article-image-link" href="#" target="_blank">
-                    <p id="article-image"></p>
-                </a>
+          <h2>Article Image Link:</h2>
+          <a id="article-image-link" href="#" target="_blank">
+            <p id="article-image"></p>
+          </a>
 
-                <!-- Section for Reading Aloud -->
-                <div class="read-aloud-section">
-                    <h3 class="readaloud">Select Voice for Reading Aloud:</h3>
-                    <select id="voiceSelect"></select>
-                    <!-- Read Aloud, Pause, Resume Buttons with Icons -->
-                    <button class="read-aloud-btn" id="read-aloud-btn" onclick="readAloud()">
-                        <i class="fas fa-volume-up icon"></i>
-                    </button>
-                    <button class="read-aloud-btn" id="pause-resume-btn" onclick="togglePauseResume()">
-                        <i class="fas fa-pause icon"></i>
-                    </button>
-                </div>
-            </div>
+          <!-- Section for Reading Aloud -->
+          <div class="read-aloud-section">
+            <h3 class="readaloud">Select Voice for Reading Aloud:</h3>
+            <select id="voiceSelect"></select>
+            <!-- Read Aloud, Pause, Resume Buttons with Icons -->
+            <button
+              class="read-aloud-btn"
+              id="read-aloud-btn"
+              onclick="readAloud()"
+            >
+              <i class="fas fa-volume-up icon"></i>
+            </button>
+            <button
+              class="read-aloud-btn"
+              id="pause-resume-btn"
+              onclick="togglePauseResume()"
+            >
+              <i class="fas fa-pause icon"></i>
+            </button>
+          </div>
         </div>
+      </div>
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
+  </body>
 </html>
